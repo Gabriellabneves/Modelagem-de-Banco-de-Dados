@@ -1,6 +1,6 @@
 # Pasta de imagens
 
-Esta pasta armazena imagens usadas na documentação e diagramas do projeto.
+Esta pasta armazena imagens usadas na documentação e diagramas feitas durante as aulas e desenvolvidas sozinha.
 
 Como usar:
 - Coloque arquivos de imagem aqui (por exemplo: .png, .jpg, .svg).
