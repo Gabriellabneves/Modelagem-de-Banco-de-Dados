@@ -1,1 +1,27 @@
+Modelo Lógico de brModelo.img.1.png
+/* Lógico_1: */
 
+CREATE TABLE TblDepartamento (
+    CodDep INTEGER PRIMARY KEY,
+    NomeDep VARCHAR,
+    LocalDep VARCHAR
+);
+
+CREATE TABLE TblFuncionario (
+    FoneFunc VARCHAR,
+    MatFunc INTEGER PRIMARY KEY,
+    NomeFunc VARCHAR,
+    fk_TblDepartamento_CodDep INTEGER
+);
+ 
+ALTER TABLE TblFuncionario ADD CONSTRAINT FK_TblFuncionario_2
+    FOREIGN KEY (fk_TblDepartamento_CodDep)
+    REFERENCES TblDepartamento (CodDep)
+    ON DELETE RESTRICT;
+
+
+Modelo Lógico Textual de brModelo.img.1.png
+
+TblDepartamento(*CodDep*,NomeDep,LocalDep)
+TblFuncionario(*Matfunc*,NomeFunc,FoneFunc,*CodDep*)
+CodDep referencia TblDepartamento.
