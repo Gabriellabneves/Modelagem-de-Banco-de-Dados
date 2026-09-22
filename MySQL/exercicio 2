@@ -1,0 +1,38 @@
+create database db_clinica_jacaranda;
+use db_clinica_jacaranda;
+
+create table tb_medico(
+nomeM varchar (100) not null, 
+crm integer not null primary key
+);
+
+create table tb_paciente(
+ID integer not null primary key,
+nomePac varchar (100) not null
+);
+
+create table tb_consulta(
+crm integer not null,
+ID integer not null,
+data_consulta date,
+hora_consulta time,
+primary key (crm,ID),
+foreign key(crm) references tb_medico(crm),
+foreign key(ID) references tb_paciente(ID)
+);
+
+insert tb_medico values ('João',1010);
+insert tb_medico values('Gabriela',1011);
+insert tb_medico values('Julia',1012);
+insert tb_medico values('Beatriz',1013);
+
+select *
+from tb_medico
+where nomeM='Gabriela';
+
+insert tb_paciente Values (1,'Josyane'),
+(2,'Marcos'),(3,'Maria'),(4,'Maite');
+
+select nomePac
+from tb_paciente
+order by nomePac desc
