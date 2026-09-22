@@ -39,7 +39,7 @@ ALTER TABLE tb_dependente ADD primary key (ID);
 ALTER TABLE tb_dependente ADD FOREIGN KEY (codS) references tb_socio(codS);
 
 ALTER TABLE tb_socio DROP fone
-/*Consegui caraioiooioi*/
+/*Consegui*/
 
 
 
