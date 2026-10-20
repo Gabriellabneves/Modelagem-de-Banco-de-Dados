@@ -1,0 +1,19 @@
+Lista de empregado
+
+1) Liste a média salarial dos empregados.
+---SELECT AVG(salario) AS 'mediaSalarial'
+---FROM empregado
+
+2) Liste o total de empregados.
+---SELECT COUNT(*) AS 'totalEmpregado'
+---FROM empregado
+
+3) Liste o maior salario.
+---SELECT MAX AS 'maiorSalario'
+---FROM empregado
+
+
+4) Liste o total da folha de pagamento dos empregados.
+---SELECT SUM (salario) AS 'folhaPagamento'
+---FROM empregados
+
