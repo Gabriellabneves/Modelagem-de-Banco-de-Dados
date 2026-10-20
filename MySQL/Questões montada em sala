@@ -1,0 +1,61 @@
+CRUD [Create (Criar), Read (Ler), Update (Atualizar) e Delete (Excluir)]
+Tabela Jogador 
+1) Liste o Pnome e Nome dos jogadores brasileiros. 
+---Select Pnome, nome
+---From jogadores
+---Where pais = 'BRA'
+
+2) Liste os nomes dos jogadores que se profissionalizaram com menos de 10 anos.
+---Select nome
+---From jogadores
+---Where (AnoP - AnoN) < 10 
+
+3) liste todos os dados de jogadores. 
+---Select *
+---From jogadores
+---Where (Não precisa)
+
+3) liste todos os dados de jogadores em ordem alfabética. 
+---Select *
+---From jogadores
+---Order by Pnome;
+
+4) liste os nomes e anoN dos jogadores eliminando repetições. 
+---Select *distinct* anoN, nome
+---From jogadores
+---Where
+
+5)Liste o nome e o anoN dos jogadores nascidos entre 1975 e 1981
+---Select nome, anoN
+---From jogadores
+---Where anoN between 1975 and 1981
+(tem que declara a data de nascimento em inteiro, porque Varchar é caracter e não é possivel fazer calculos)
+
+6)Liste o nome de todos os jogadores que começam com a letra K.
+---Select nome
+---From jogadores
+---Where nome like 'k%'
+
+7)Liste os nomes dos jogadores cuja letra A seja a segunda e a penultima letra.
+---Select nome
+---From jogadores
+---Where '_a%a_'
+
+8)
+---Select
+---From
+---Where
+
+
+
+= Igual
+<> Diferente
+< Maior que
+> Menor que
+=> Maior ou igual
+<= Menor ou igual
+LIKE 'k%'  COMEÇA COM K
+LIKE '%k' TERMINA COM K
+LIKE 'a%a' COMEÇA E TERMINA EM A
+LIKE '%barros%' QUE TENHA ESSE SOBRENOME
+
