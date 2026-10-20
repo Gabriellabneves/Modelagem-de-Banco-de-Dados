@@ -1,0 +1,20 @@
+1) Liste o nome e sobrenome por sobrenome
+--- SELECT Pnome,Snome,Unome
+--- FROM funcionario
+--- ORDER BY Unome
+
+2) Listar todos os campos de funcionarios ordenados por cidade
+---SELECT *
+---FROM funcionarios
+---ORDER BY cidade
+
+3)Liste os funcionarios que tem salario superior a R$1.000,00 ordenados pelo nome completo
+---SELECT *
+---FROM funcionarios
+---WHERE salario > 1000
+---ORDER BY Pnome, Snome, Unome
+
+4) Liste a data de nascimento e o primeiro nome dos funcionários ordenados do mais novo para o mais velho.
+---SELECT dataNasc,Pnome
+---FROM funcionarios
+---ORDER BY dataNasc DESC, Pnome
