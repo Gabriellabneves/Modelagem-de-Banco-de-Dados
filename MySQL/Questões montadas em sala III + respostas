@@ -17,3 +17,34 @@ Lista de empregado
 ---SELECT SUM (salario) AS 'folhaPagamento'
 ---FROM empregados
 
+5) Qual é a media salarial dos DBAs por cidades?
+---SELECT cidade, AVG(salario) AS mediaSalarial
+---FROM empregado
+---WHERE nome_cargo = 'DBA'
+---GROUP BY cidade; 
+
+6) Liste os codigos dos cargos que possuem a soma dos salarios maior que 100000.
+---SELECT codigoCargo, SUM(salario)
+---FROM empregado
+---GROUP BY codigoCargo
+---HAVING SUM(salario) > 100000;
+
+*) Listar o nome do empregado da tabela empregado e descrição da tabela cargo. (*Como chamar duas tabelas*)
+---SELECT empregado.nome, cargo.descrição
+---FROM empregado, cargo
+---WHERE empregado.cod_cargo = cargo.cod_cargo
+
+
+*) Listar o nome do empregado da tabela empregado e descrição da tabela cargo. (*Como chamar duas tabelas*)
+---SELECT empregado.nome, cargo.descrição
+---FROM empregado INNER JOIN cargo
+---ON empregado.cod_cargo = cargo.cod_cargo
+PRECISA CHAMAR A CHAVE PRIMÁRIA E A CHAVE ESTRANGEIRA QUE SEJA COMUM.
+
+
+
+7)
+---SELECT
+---FROM
+---WHERE
+---GROUP BY
