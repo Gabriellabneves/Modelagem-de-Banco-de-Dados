@@ -1,1 +1,238 @@
 https://sqlfiddle.com/mysql/compilador-online? id=b6db810a-40e2-4ced-ad82-2da81bab6415
+https://sqlfiddle.com/mysql/compilador-online? id=b6db810a-40e2-4ced-ad82-2da81bab6415
+
+CREATE TABLE paises (
+    codigo INT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL
+);
+
+INSERT INTO paises (codigo, nome)
+VALUES
+(1, 'BRASIL'),
+(2, 'ITÁLIA'),
+(3, 'FRANÇA'),
+(4, 'ALEMANHA'),
+(5, 'PORTUGAL'),
+(6, 'ESPANHA'),
+(7, 'CANADÁ'),
+(8, 'JAPÃO'),
+(9, 'AUSTRÁLIA'),
+(10, 'ARGENTINA');
+
+SELECT * FROM paises;
+
+CREATE TABLE equipes (
+    sigla VARCHAR(10) PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cod_pais INT,
+    FOREIGN KEY (cod_pais) REFERENCES paises(codigo)
+);
+
+INSERT INTO paises (codigo, nome)
+VALUES
+(11, 'AUSTRIA'),
+(12, 'REINO UNIDO'),
+(13, 'SUIÇA'),
+(14, 'ESTADOS UNIDOS');
+
+SELECT * FROM paises;
+
+INSERT INTO equipes (sigla, nome, cod_pais)
+VALUES
+('FER', 'Ferrari', 2),
+('MER', 'Mercedes', 4),
+('RBR', 'Red Bull Racing', 11),
+('MCL', 'McLaren', 12),
+('WIL', 'Williams', 12),
+('AMR', 'Aston Martin', 12),
+('ALP', 'Alpine', 3),
+('HAA', 'Haas', 14),
+('SAU', 'Sauber', 13),
+('RBT', 'Racing Bulls', 2);
+
+SELECT * FROM equipes;
+
+SELECT e.nome AS equipe, p.nome AS pais
+FROM equipes e
+JOIN paises p
+ON e.cod_pais = p.codigo;
+
+
+CREATE TABLE pilotos (
+    numero INT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    cod_pais INT,
+    sigla_equipe VARCHAR(10),
+    FOREIGN KEY (cod_pais) REFERENCES paises(codigo),
+    FOREIGN KEY (sigla_equipe) REFERENCES equipes(sigla)
+);
+
+SELECT * FROM pilotos;
+
+
+INSERT INTO pilotos (numero, nome, cod_pais, sigla_equipe)
+VALUES
+(1, 'Ayrton Senna', 1, 'MCL'),
+(2, 'Nelson Piquet', 1, 'WIL'),
+(3, 'Rubens Barrichello', 1, 'FER'),
+(4, 'Felipe Massa', 1, 'FER'),
+(5, 'Emerson Fittipaldi', 1, 'MCL'),
+(6, 'Alberto Ascari', 2, 'FER'),
+(7, 'Nino Farina', 2, 'FER'),
+(8, 'Jarno Trulli', 2, 'RBT'),
+(9, 'Alain Prost', 3, 'ALP'),
+(10, 'Jean Alesi', 3, 'ALP');
+
+
+
+SELECT * FROM pilotos;
+
+
+SELECT
+    p.nome AS piloto,
+    pa.nome AS pais,
+    e.nome AS equipe
+FROM pilotos p
+JOIN paises pa ON p.cod_pais = pa.codigo
+JOIN equipes e ON p.sigla_equipe = e.sigla;
+
+
+CREATE TABLE corridas (
+    sigla_gp VARCHAR(10) PRIMARY KEY,
+    nome_gp VARCHAR(100) NOT NULL,
+    cod_pais INT,
+    qtd_voltas INT,
+    FOREIGN KEY (cod_pais) REFERENCES paises(codigo)
+);
+
+
+SELECT * FROM corridas;
+
+
+INSERT INTO corridas (sigla_gp, nome_gp, cod_pais, qtd_voltas)
+VALUES
+('BRA', 'Grande Premio do Brasil', 1, 71),
+('ITA', 'Grande Premio da Italia', 2, 53),
+('FRA', 'Grande Premio da Franca', 3, 53),
+('ALE', 'Grande Premio da Alemanha', 4, 67),
+('POR', 'Grande Premio de Portugal', 5, 66),
+('ESP', 'Grande Premio da Espanha', 6, 66),
+('CAN', 'Grande Premio do Canada', 7, 70),
+('JAP', 'Grande Premio do Japao', 8, 53),
+('AUS', 'Grande Premio da Australia', 9, 58),
+('ARG', 'Grande Premio da Argentina', 10, 53);
+
+
+SELECT * FROM corridas;
+
+
+CREATE TABLE participantes (
+    sigla_gp VARCHAR(10),
+    num_piloto INT,
+    posicao_largada INT,
+    PRIMARY KEY (sigla_gp, num_piloto),
+    FOREIGN KEY (sigla_gp) REFERENCES corridas(sigla_gp),
+    FOREIGN KEY (num_piloto) REFERENCES pilotos(numero)
+);
+
+
+INSERT INTO participantes (sigla_gp, num_piloto, posicao_largada)
+VALUES
+('BRA', 1, 1),
+('ITA', 2, 2),
+('FRA', 3, 3),
+('ALE', 4, 4),
+('POR', 5, 5),
+('ESP', 6, 6),
+('CAN', 7, 7),
+('JAP', 8, 8),
+('AUS', 9, 9),
+('ARG', 10, 10);
+
+
+SELECT
+    c.nome_gp AS corrida,
+    p.nome AS piloto,
+    pa.posicao_largada AS posicao
+FROM participantes pa
+JOIN corridas c ON pa.sigla_gp = c.sigla_gp
+JOIN pilotos p ON pa.num_piloto = p.numero;
+
+
+SELECT nome
+FROM paises
+WHERE nome LIKE 'B%L';
+
+
+SELECT p.nome AS piloto, pa.nome AS pais
+FROM pilotos p
+JOIN paises pa
+    ON p.cod_pais = pa.codigo
+WHERE pa.nome IN ('BRASIL', 'ITALIA', 'FRANCA');
+
+
+SELECT nome
+FROM pilotos;
+
+
+SELECT
+    nome_gp AS Grande_Premio,
+    qtd_voltas AS Quantidade_de_Voltas
+FROM corridas;
+
+
+SELECT
+    p.nome AS Piloto,
+    pa.nome AS Pais
+FROM pilotos p
+JOIN paises pa
+    ON p.cod_pais = pa.codigo;
+
+
+ALTER TABLE pilotos
+ADD salario DECIMAL(10,2);
+
+
+ALTER TABLE pilotos
+MODIFY COLUMN salario INT;
+
+
+UPDATE pilotos SET salario = 85000 WHERE numero = 1;
+UPDATE pilotos SET salario = 90000 WHERE numero = 2;
+UPDATE pilotos SET salario = 75000 WHERE numero = 3;
+UPDATE pilotos SET salario = 95000 WHERE numero = 4;
+UPDATE pilotos SET salario = 100000 WHERE numero = 5;
+UPDATE pilotos SET salario = 65000 WHERE numero = 6;
+UPDATE pilotos SET salario = 80000 WHERE numero = 7;
+UPDATE pilotos SET salario = 70000 WHERE numero = 8;
+UPDATE pilotos SET salario = 110000 WHERE numero = 9;
+UPDATE pilotos SET salario = 120000 WHERE numero = 10;
+
+
+SELECT nome, salario
+FROM pilotos;
+
+
+SELECT nome, salario
+FROM pilotos
+WHERE salario BETWEEN 70000 AND 100000;
+
+
+SELECT
+    cod_pais,
+    AVG(salario) AS media_salarial
+FROM pilotos
+GROUP BY cod_pais;
+
+
+SELECT DISTINCT salario
+FROM pilotos
+ORDER BY salario ASC;
+
+
+
+SELECT p.nome AS piloto, pa.nome AS pais
+FROM pilotos p
+JOIN paises pa
+    ON p.cod_pais = pa.codigo
+WHERE pa.nome IN ('BRASIL', 'ITÁLIA', 'FRANÇA');
