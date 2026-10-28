@@ -1,0 +1,94 @@
+CREATE DATABASE db_biblioteca;
+
+USE db_biblioteca;
+
+CREATE TABLE livro (
+    codlivro INT NOT NULL AUTO_INCREMENT,
+    titulo VARCHAR(45) NOT NULL,
+    PRIMARY KEY (codlivro)
+);
+
+CREATE TABLE autor (
+    mat INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(45) NOT NULL,
+    PRIMARY KEY (mat)
+);
+
+CREATE TABLE autor_livro (
+    codlivro INT NOT NULL,
+    mat INT NOT NULL,
+    PRIMARY KEY (codlivro, mat),
+    FOREIGN KEY (codlivro) REFERENCES livro(codlivro),
+    FOREIGN KEY (mat) REFERENCES autor(mat)
+);
+
+INSERT INTO livro (titulo) VALUES
+    ('Red Queen'),
+    ('PJO'),
+    ('Anomalous');
+
+INSERT INTO autor (nome) VALUES
+    ('Victoria'),
+    ('Rick Riordan'),
+    ('Daniele');
+
+INSERT INTO autor_livro (codlivro, mat) VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3);
+
+
+SELECT livro.titulo, autor.nome
+FROM livro
+JOIN autor_livro ON livro.codlivro = autor_livro.codlivro
+JOIN autor ON autor_livro.mat = autor.mat;
+
+
+SELECT livro.titulo, autor.nome
+FROM livro, autor_livro, autor
+WHERE livro.codlivro = autor_livro.codlivro
+  AND autor_livro.mat = autor.mat;
+
+
+SELECT livro.titulo, autor.nome
+FROM livro, autor
+WHERE EXISTS (
+    SELECT 1
+    FROM autor_livro
+    WHERE autor_livro.codlivro = livro.codlivro
+      AND autor_livro.mat = autor.mat
+);
+
+DELIMITER $$
+
+CREATE FUNCTION soma (num1 int, num2 int)
+RETURNS INT DETERMINISTIC
+BEGIN
+RETURN num1+num2;
+END$$
+
+SELECT soma(2,5);
+
+
+DELIMITER //
+CREATE PROCEDURE verLivro (varLivro INT)
+BEGIN
+    SELECT titulo
+    FROM livro
+    WHERE codlivro = varLivro;
+
+    SELECT 'Procedimento executado com sucesso!' AS mensagem;
+END//
+DELIMITER ;
+
+CALL verLivro(3);
+
+DELIMITER //
+CREATE FUNCTION aumenta_preco (preco DECIMAL (10,2), TAXA DECIMAL (10,2))
+	RETURNS INT DETERMINISTIC
+	BEGIN
+	RETURN preco + preco * taxa/100;
+	END //
+DELIMITER ; 
+
+SELECT aumenta_preco (50,10);
