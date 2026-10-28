@@ -92,3 +92,32 @@ CREATE FUNCTION aumenta_preco (preco DECIMAL (10,2), TAXA DECIMAL (10,2))
 DELIMITER ; 
 
 SELECT aumenta_preco (50,10);
+
+
+1) Testar função soma de 2 números
+
+DELIMITER $$
+
+CREATE FUNCTION soma (num1 int, num2 int)
+RETURNS INT DETERMINISTIC
+BEGIN
+RETURN num1+num2:
+END$$
+
+SELECT soma(2,5);
+
+2) Gerar o Procedimento para verPreco do livro
+
+DELIMITER //
+CREATE PROCEDURE verPreço (varLivro SMALLINT)
+BEGIN
+	SELECT CONCAT('O preço é', Preco_Livro) AS Preço 
+	FROM tbl_Livro
+	WHERE ID_Livro = varLivro;
+	SELECT 'Procedimento executado com sucesso!'
+END//
+DELIMITER;
+
+CALL verPreço(3);
+
+
